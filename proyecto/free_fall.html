@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Free Fall</title>
+  <!-- Always make sure that dependencies like the following are placed where
+  they should be on the server.-->
+  <script src="./three.js"></script>
+  <script src="./stats.min.js"></script>
+  <script src="./dat.gui.min.js"></script>
+  <script src="../libs/stats.js"></script>
+  <script src="../libs/dat.gui.js"></script>
+  <script src="physi.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div id="Stats-output"></div>
+  <div id="WebGL-output"></div>
+  <script>
+    Physijs.scripts.worker = 'js/physijs_worker.js'
+    //Physijs.scripts.ammo = 'js/ammo.js'
+
+
+  var camera;
+  var scene;
+  var renderer;
+  var gui = new dat.GUI();
+  var cube;
+  var cone;
+
+  var controls = new function() {
+    this.gravity_modifier = 10;
+    this.cube_mass_modifier = 0;
+    this.cone_mass_modifier = 0;
+  }
+
+  var menu = {
+    a: function(){
+     scene.remove(cube);
+     scene.remove(cone);
+
+      controls.gravity_modifier = 10;
+      controls.cube_mass_modifier = 0;
+      controls.cone_mass_modifier = 0;
+
+      var cubeGeometry = new THREE.BoxGeometry(7, 7, 7);
+      var cubeMaterial = new THREE.MeshLambertMaterial({color: 0x7777ff});
+      cube = new Physijs.BoxMesh(cubeGeometry, cubeMaterial, 0, // mass
+              { collision_flags: 0 });
+
+      cube.position.x = 20;
+      cube.position.y = 60;
+      cube.position.z = 2;
+      cube.castShadow = true;
+
+      scene.add(cube);
+
+      var coneGeometry = new THREE.ConeGeometry( 4, 10, 32 );
+      var coneMaterial = new THREE.MeshLambertMaterial( {color: 0x27ca53 } );
+      cone = new Physijs.BoxMesh( coneGeometry, coneMaterial, 0, // mass
+              { collision_flags: 0 } );
+
+      cone.position.x = -20;
+      cone.position.y = 60;
+      cone.position.z = 2;
+
+      cone.castShadow = true;
+
+      scene.add( cone );
+
+    alert("Reset");}
+  };
+
+
+  gui.add(controls, 'gravity_modifier', 0, 30).name('gravity modifier');
+  gui.add(controls, 'cube_mass_modifier', 0, 50).name('cube mass');
+  gui.add(controls, 'cone_mass_modifier', 0, 50).name('cone mass');
+  gui.add(menu,'a').name('Reset');
+
+
+  function initStats() {
+    var stats = new Stats();
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0';
+    stats.domElement.style.top = '0';
+    document.getElementById("Stats-output")
+      .appendChild( stats.domElement );
+      return stats;
+  }
+
+  function init() {
+    var menu;
+    var stats = initStats();
+    var grav = 0;
+    var cone_mass = 0;
+    var cube_mass=0
+    grav += -(controls.gravity_modifier);
+    cone_mass = (controls.cone_mass_modifier);
+    cube_mass = (controls.cube_mass_modifier);
+    scene = new Physijs.Scene();
+    scene.setGravity(new THREE.Vector3(0,-10,0));
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor(0xEEEEEEE);  // Note that the book uses setClearColorHex(), which will yield an error on recent versions of Three.js
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    var axes = new THREE.AxisHelper(20);
+    scene.add(axes);
+
+
+    var planeGeometry = new THREE.PlaneGeometry(85, 20);
+    var planeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});
+    var plane = new Physijs.BoxMesh(planeGeometry, planeMaterial);
+
+
+    plane.rotation.x = -0.5 * Math.PI;
+    plane.position.x = 15;
+    plane.position.y = 0;
+    plane.position.z = 0;
+    plane.receiveShadow = true;
+
+    scene.add(plane);
+
+
+    var cubeGeometry = new THREE.BoxGeometry(7, 7, 7);
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: 0x7777ff});
+    cube = new Physijs.BoxMesh(cubeGeometry, cubeMaterial, 0, // mass
+            { collision_flags: 0 });
+
+    cube.position.x = 20;
+    cube.position.y = 60;
+    cube.position.z = 2;
+    cube.castShadow = true;
+
+    scene.add(cube);
+
+    var coneGeometry = new THREE.ConeGeometry( 4, 10, 32 );
+    var coneMaterial = new THREE.MeshLambertMaterial( {color: 0x27ca53 } );
+    cone = new Physijs.BoxMesh( coneGeometry, coneMaterial, 0, // mass
+            { collision_flags: 0 } );
+
+    cone.position.x = -20;
+    cone.position.y = 60;
+    cone.position.z = 2;
+
+    cone.castShadow = true;
+
+    scene.add( cone );
+
+    var wfGeometry = new THREE.SphereGeometry( 5, 8, 8 );
+    var wfMaterial = new THREE.MeshBasicMaterial( {color: 0x3d75ca, wireframe: true} );
+    var wfSphere = new THREE.Mesh( wfGeometry, wfMaterial );
+    scene.add( wfSphere );
+
+    wfSphere.position.x = 0;
+    wfSphere.position.y = 20;
+    wfSphere.position.z = 0;
+
+
+    camera.position.x = -40;
+    camera.position.y = 70;
+    camera.position.z = 90;
+    camera.lookAt(scene.position);
+
+    var spotLight = new THREE.SpotLight( 0xffffff );
+    spotLight.position.set(-40, 60, -10);
+    spotLight.castShadow = true;
+    spotLight.shadow.mapSize.width = 1024;
+    spotLight.shadow.mapSize.height = 1024;
+    scene.add(spotLight);
+
+    var step = 0;
+    var step2 = 0;
+    function renderScene() {
+      stats.update();
+
+      scene.setGravity(new THREE.Vector3(0,-controls.gravity_modifier,0));
+      cube.mass += controls.cube_mass_modifier;
+      cone.mass += controls.cone_mass_modifier;
+
+      scene.simulate();
+
+      requestAnimationFrame(renderScene);
+      renderer.render(scene, camera);
+    }
+
+    document.getElementById("WebGL-output")
+      .appendChild(renderer.domElement);
+    renderScene();
+  };
+
+
+
+  function onResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+  window.onload = init;
+  window.addEventListener('resize', onResize, false);
+  </script>
+</body>
+</html>
