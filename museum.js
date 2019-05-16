@@ -130,7 +130,7 @@ function fillScene() {
   scene.add(plane);
 
   planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
-  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  texture = new THREE.TextureLoader().load( './assets/fire.png' );
   planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
   plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.receiveShadow = true;
@@ -147,7 +147,7 @@ function fillScene() {
 
 
   planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
-  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  texture = new THREE.TextureLoader().load( './assets/cf_museum.png' );
   planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
   plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.receiveShadow = true;
@@ -162,7 +162,7 @@ function fillScene() {
 
 
   planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
-  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  texture = new THREE.TextureLoader().load( './assets/stationary_museum.png' );
   planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
   plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.receiveShadow = true;
@@ -176,7 +176,7 @@ function fillScene() {
   scene.add(plane);
 
   planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
-  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  texture = new THREE.TextureLoader().load( './assets/welcome.png' );
   planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
   plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.receiveShadow = true;
