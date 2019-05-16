@@ -1,10 +1,34 @@
 ////////////////////////////////////////////////////////////////////////////////
 /*global THREE, document, window  */
 var camera, scene, renderer;
+// var objects;
+var group;
 var cameraControls;
 var delta = 100;
 
 document.onkeydown = checkKey;
+document.addEventListener( 'mousedown', onDocumentMouseDown, false )
+
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+
+function onDocumentMouseDown( event ) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+    raycaster.setFromCamera( mouse, camera );
+    var intersects = raycaster.intersectObjects( scene.children );
+    // console.log(intersects);
+    if ( intersects.length > 0 ) {
+
+        window.open(intersects[0].object.userData.URL);
+
+    }
+
+}
 
 
 function checkKey(e) {
@@ -68,6 +92,28 @@ function fillScene() {
 	scene.add(axes);
 
 	drawMuseum();
+
+  // var domEvents = new THREEx.DomEvent(camera, renderer.domElement);
+
+  var planeGeometry = new THREE.PlaneGeometry(40, 40, 40, 80);
+  var texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  var planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+  var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.receiveShadow = true;
+  // rotate and position the plane
+  // plane.rotation.x = -0.5 * Math.PI;
+  plane.position.set(10,50,-140);
+  // add the plane to the scene
+  plane.userData = {URL: "https://www.google.com"}
+  group = new THREE.Object3D();
+  group.add(plane)
+  scene.add(plane);
+  // plane.addEventListener('click', function() {window.location.href = "google.com";});
+  // plane.on('click', function(object3d){window.location.href = "google.com";});
+
+  // domEvents.addEventListener(plane, 'click', function(event){
+  //   window.location.href = "google.com";
+  // }, false);
 }
 
 function drawMuseum() {
@@ -104,12 +150,16 @@ function drawMuseum() {
 			scene.add( object );
 		}, onProgress, onError); });
 
+
+
+
+
 }
 
 function init() {
 	var canvasWidth = 1000;
 	var canvasHeight = 800;
-	var canvasRatio = canvasWidth / canvasHeight;
+	var canvasRatio = window.innerWidth / window.innerHeight;
 
 	// RENDERER
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
