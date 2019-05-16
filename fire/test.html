@@ -64,7 +64,7 @@ material0.setPerspective( camera.fov, height );
 var particleFireMesh0 = new THREE.Points( geometry0, material0 );
 scene.add( particleFireMesh0 );
 console.log(particleFireMesh0);
-//Creating the box for display. 
+//Creating the box for display.
 var boxGeometry = new THREE.BoxGeometry( 1, 1, 1 );
 var boxMaterial = new THREE.MeshPhongMaterial( { color: 0x666666} );
 
@@ -84,7 +84,7 @@ var ground = new THREE.Mesh(
 ground.position.y = -1;
 ground.rotation.x = THREE.Math.degToRad( -90 );
 scene.add( ground );
- 
+
 gui.add(controls, 'fire_width_modifier', 0, 5).name('Fire width');
 
 function changeColor(){
@@ -110,7 +110,7 @@ function changeColor(){
         return 0xff2200;
     }
 }
-//Updating the animation. 
+//Updating the animation.
 ( function update () {
     var flameColor=changeColor();
 	var delta = clock.getDelta();

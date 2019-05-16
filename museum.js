@@ -95,25 +95,99 @@ function fillScene() {
 
   // var domEvents = new THREEx.DomEvent(camera, renderer.domElement);
 
-  var planeGeometry = new THREE.PlaneGeometry(40, 40, 40, 80);
-  var texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
-  var planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
-  var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  var planeGeometry
+  var texture
+  var planeMaterial
+  var plane
+
+  planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
+  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+  plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.receiveShadow = true;
   // rotate and position the plane
   // plane.rotation.x = -0.5 * Math.PI;
-  plane.position.set(10,50,-140);
+  plane.position.set(10,60,-140);
   // add the plane to the scene
   plane.userData = {URL: "https://www.google.com"}
   group = new THREE.Object3D();
-  group.add(plane)
+  group.add(plane);
   scene.add(plane);
-  // plane.addEventListener('click', function() {window.location.href = "google.com";});
-  // plane.on('click', function(object3d){window.location.href = "google.com";});
 
-  // domEvents.addEventListener(plane, 'click', function(event){
-  //   window.location.href = "google.com";
-  // }, false);
+
+  planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
+  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+  plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.receiveShadow = true;
+  // rotate and position the plane
+  // plane.rotation.x = -0.5 * Math.PI;
+  plane.position.set(160, 60,-140);
+  // add the plane to the scene
+  plane.userData = {URL: "https://www.youtube.com"}
+  group = new THREE.Object3D();
+  group.add(plane);
+  scene.add(plane);
+
+  planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
+  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+  plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.receiveShadow = true;
+  // rotate and position the plane
+  // plane.rotation.x = -0.5 * Math.PI;
+  plane.position.set(310, 60,-140);
+  // add the plane to the scene
+  plane.userData = {URL: "https://www.youtube.com"}
+  group = new THREE.Object3D();
+  group.add(plane);
+  scene.add(plane);
+
+
+
+
+  planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
+  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+  plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.receiveShadow = true;
+  // rotate and position the plane
+  plane.rotation.y = -1 * Math.PI;
+  plane.position.set(10,60,140);
+  // add the plane to the scene
+  plane.userData = {URL: "https://www.google.com"}
+  group = new THREE.Object3D();
+  group.add(plane);
+  scene.add(plane);
+
+
+  planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
+  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+  plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.receiveShadow = true;
+  // rotate and position the plane
+  plane.rotation.y = -1 * Math.PI;
+  plane.position.set(160, 60,140);
+  // add the plane to the scene
+  plane.userData = {URL: "https://www.youtube.com"}
+  group = new THREE.Object3D();
+  group.add(plane);
+  scene.add(plane);
+
+  planeGeometry = new THREE.PlaneGeometry(80, 80, 40, 1);
+  texture = new THREE.TextureLoader().load( 'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg' );
+  planeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+  plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.receiveShadow = true;
+  // rotate and position the plane
+  plane.rotation.y = -1 * Math.PI;
+  plane.position.set(310, 60,140);
+  // add the plane to the scene
+  plane.userData = {URL: "https://www.youtube.com"}
+  group = new THREE.Object3D();
+  group.add(plane);
+  scene.add(plane);
 }
 
 function drawMuseum() {
@@ -157,8 +231,8 @@ function drawMuseum() {
 }
 
 function init() {
-	var canvasWidth = 1000;
-	var canvasHeight = 800;
+	var canvasWidth = window.innerWidth;
+	var canvasHeight = window.innerHeight;
 	var canvasRatio = window.innerWidth / window.innerHeight;
 
 	// RENDERER
@@ -169,7 +243,7 @@ function init() {
 	renderer.setClearColor( 0x000000, 1.0 );
 
 	// CAMERA
-  camera = new THREE.PerspectiveCamera(45, canvasRatio, 1, 1000);
+  camera = new THREE.PerspectiveCamera(45, canvasRatio, 1, 10000);
 	camera.position.x = 1316.3822829723358;
 	camera.position.z = 0;
 	camera.position.y = 34.61113320082892;
