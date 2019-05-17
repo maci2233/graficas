@@ -24,7 +24,7 @@ function onDocumentMouseDown( event ) {
     // console.log(intersects);
     if ( intersects.length > 0 ) {
 
-        window.open(intersects[0].object.userData.URL);
+         window.location.href = intersects[0].object.userData.URL
 
     }
 
@@ -109,7 +109,7 @@ function fillScene() {
   // plane.rotation.x = -0.5 * Math.PI;
   plane.position.set(10,60,-140);
   // add the plane to the scene
-  plane.userData = {URL: "https://www.google.com"}
+  plane.userData = {URL: "/experimentos/catapult.html"}
   group = new THREE.Object3D();
   group.add(plane);
   scene.add(plane);
@@ -124,7 +124,7 @@ function fillScene() {
   // plane.rotation.x = -0.5 * Math.PI;
   plane.position.set(160, 60,-140);
   // add the plane to the scene
-  plane.userData = {URL: "https://www.youtube.com"}
+  plane.userData = {URL: "/experimentos/free_fall.html"}
   group = new THREE.Object3D();
   group.add(plane);
   scene.add(plane);
@@ -138,7 +138,7 @@ function fillScene() {
   // plane.rotation.x = -0.5 * Math.PI;
   plane.position.set(310, 60,-140);
   // add the plane to the scene
-  plane.userData = {URL: "https://www.youtube.com"}
+  plane.userData = {URL: "/fire/examples/test.html"}
   group = new THREE.Object3D();
   group.add(plane);
   scene.add(plane);
@@ -155,7 +155,7 @@ function fillScene() {
   plane.rotation.y = -1 * Math.PI;
   plane.position.set(10,60,140);
   // add the plane to the scene
-  plane.userData = {URL: "https://www.google.com"}
+  plane.userData = {URL: "/experimentos/Experiment/lab1.html"}
   group = new THREE.Object3D();
   group.add(plane);
   scene.add(plane);
@@ -170,7 +170,7 @@ function fillScene() {
   plane.rotation.y = -1 * Math.PI;
   plane.position.set(160, 60,140);
   // add the plane to the scene
-  plane.userData = {URL: "https://www.youtube.com"}
+  plane.userData = {URL: "/experimentos/Experiment2/lab1.html"}
   group = new THREE.Object3D();
   group.add(plane);
   scene.add(plane);
@@ -184,7 +184,7 @@ function fillScene() {
   plane.rotation.y = -1 * Math.PI;
   plane.position.set(310, 60,140);
   // add the plane to the scene
-  plane.userData = {URL: "https://www.youtube.com"}
+  plane.userData = {URL: "/"}
   group = new THREE.Object3D();
   group.add(plane);
   scene.add(plane);
